@@ -1,3 +1,7 @@
+## Outliner GM
+
+This fork restricts access to outliner to the GM.
+
 ## License
 
 GNU GPLv3
