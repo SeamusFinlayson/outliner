@@ -1,13 +1,13 @@
 {
-  "name": "Outliner",
-  "version": "1.0.0",
+  "name": "Outliner GM",
+  "version": "1.0.1",
   "manifest_version": 1,
   "author": "Owlbear Rodeo",
   "homepage_url": "https://extensions.owlbear.rodeo/outliner",
   "icon": "/logo.png",
   "description": "Manage layers, search for items and view an outline of your scenes",
   "action": {
-    "title": "Outliner",
+    "title": "Outliner GM",
     "icon": "/icon.svg",
     "popover": "/",
     "height": 129,
