@@ -19,6 +19,7 @@ export function Header({
         title={title}
         action={action}
         titleTypographyProps={{
+          noWrap: true, // This fixes a visual bug that occurs when the search field is closed and the title is longer than 1 word
           sx: {
             fontSize: "1.125rem",
             fontWeight: "bold",
