@@ -18,6 +18,7 @@ import useTheme from "@mui/material/styles/useTheme";
 import ListItem from "@mui/material/ListItem";
 import Stack from "@mui/material/Stack";
 import { IconButton } from "@mui/material";
+import { BackHand, DoNotTouch } from "@mui/icons-material";
 
 export const ItemListItem = memo(function ({
   item,
@@ -31,9 +32,9 @@ export const ItemListItem = memo(function ({
   dragging?: boolean;
 }) {
   const selected = useOwlbearStore(
-    (state) => state.selection?.includes(item.id) ?? false
+    state => state.selection?.includes(item.id) ?? false
   );
-  const role = useOwlbearStore((state) => state.role);
+  const role = useOwlbearStore(state => state.role);
 
   const [ref, inView] = useInView();
 
@@ -41,26 +42,37 @@ export const ItemListItem = memo(function ({
 
   const [hovering, setHovering] = useState(false);
 
+  const showDisableHit = useMemo(() => {
+    return (item.disableHit || selected || hovering) && role === "GM";
+  }, [item.disableHit, selected, hovering, role]);
+
   const showLocked = useMemo(() => {
-    return item.locked || selected || hovering;
-  }, [item.locked, selected, hovering]);
+    return item.locked || selected || hovering || showDisableHit;
+  }, [item.locked, selected, hovering, showDisableHit]);
 
   const showVisible = useMemo(() => {
     return (
-      (!item.visible || selected || hovering || showLocked) && role === "GM"
+      (!item.visible || selected || hovering || showLocked || showDisableHit) &&
+      role === "GM"
     );
-  }, [item.visible, selected, hovering, showLocked, role]);
+  }, [item.visible, selected, hovering, showLocked, role, showDisableHit]);
 
   const showActions = inView && (showVisible || showLocked);
 
+  function handleDisableHitClick() {
+    OBR.scene.items.updateItems([item], items => {
+      items[0].disableHit = !item.disableHit ? true : !item.disableHit;
+    });
+  }
+
   function handleLockClick() {
-    OBR.scene.items.updateItems([item], (items) => {
+    OBR.scene.items.updateItems([item], items => {
       items[0].locked = !item.locked;
     });
   }
 
   function handleVisibleClick() {
-    OBR.scene.items.updateItems([item], (items) => {
+    OBR.scene.items.updateItems([item], items => {
       items[0].visible = !item.visible;
     });
   }
@@ -74,6 +86,24 @@ export const ItemListItem = memo(function ({
             direction="row"
             sx={{ opacity: !hovering && !selected ? 0.5 : 1 }}
           >
+            {showDisableHit && (
+              <Tooltip
+                title={item.disableHit ? "Make Clickable" : "Make Unclickable"}
+                disableInteractive
+              >
+                <IconButton
+                  size="small"
+                  edge="end"
+                  onClick={handleDisableHitClick}
+                >
+                  {item.disableHit ? (
+                    <DoNotTouch fontSize="small" />
+                  ) : (
+                    <BackHand fontSize="small" />
+                  )}
+                </IconButton>
+              </Tooltip>
+            )}
             {showLocked && (
               <Tooltip
                 title={item.locked ? "Unlock" : "Lock"}
@@ -123,12 +153,12 @@ export const ItemListItem = memo(function ({
           </Stack>
         ) : undefined
       }
-      onPointerOver={(e) => {
+      onPointerOver={e => {
         if (e.pointerType === "mouse") {
           setHovering(true);
         }
       }}
-      onPointerLeave={(e) => {
+      onPointerLeave={e => {
         if (e.pointerType === "mouse") {
           setHovering(false);
         }

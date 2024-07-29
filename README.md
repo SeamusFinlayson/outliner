@@ -1,6 +1,10 @@
 ## Outliner GM
 
-This fork restricts access to outliner to the GM.
+This fork of Outliner prevents players from accessing the extension.
+
+## Additional Features
+
+In addition to toggling a token's visibility and locked property you can also make it unclickable. This is useful for displaying effects such as animated fog, animated wind, or token auras that would otherwise get in the way of clicking items behind them.
 
 ## License
 
