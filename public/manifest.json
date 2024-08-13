@@ -1,9 +1,9 @@
 {
   "name": "Outliner GM",
   "version": "1.1.0",
-  "manifest_version": 1,
-  "author": "Owlbear Rodeo",
-  "homepage_url": "https://extensions.owlbear.rodeo/outliner",
+  "manifest_version": 2,
+  "author": "Seamus Finlayson",
+  "homepage_url": "https://github.com/SeamusFinlayson/outliner-gm",
   "icon": "/logo.png",
   "description": "Manage layers, search for items and view an outline of your scenes",
   "action": {

@@ -8,7 +8,7 @@ tags:
   - built-by-owlbear
   - other
 manifest: https://outliner.owlbear.rodeo/manifest.json
-learn-more: https://extensions.owlbear.rodeo/outliner
+learn-more: https://github.com/SeamusFinlayson/outliner-gm
 ---
 
 # Outliner
